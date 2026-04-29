@@ -11,6 +11,59 @@ Claude Code -> /v1/messages -> OpenAI /v1/responses -> Anthropic response/SSE
 
 ## Run
 
+### Windows with Go
+
+Install Go from:
+
+```text
+https://go.dev/dl/
+```
+
+Then open PowerShell in the repository directory:
+
+```powershell
+go version
+go build -o gpt2claude-lite.exe .
+```
+
+Configure Claude Code and save the upstream settings:
+
+```powershell
+.\scripts\configure-windows.ps1 `
+  -UpstreamBaseUrl "https://your-openai-compatible-host/v1" `
+  -ApiKey "YOUR_UPSTREAM_API_KEY" `
+  -Model "gpt-5.5"
+```
+
+This writes:
+
+```text
+%USERPROFILE%\.gpt2claude-lite\config.json
+%USERPROFILE%\.claude\settings.json
+```
+
+Start the proxy:
+
+```powershell
+.\gpt2claude-lite.exe --host 127.0.0.1 --port 43501
+```
+
+Or configure and start in one command:
+
+```powershell
+.\scripts\configure-windows.ps1 `
+  -UpstreamBaseUrl "https://your-openai-compatible-host/v1" `
+  -ApiKey "YOUR_UPSTREAM_API_KEY" `
+  -Model "gpt-5.5" `
+  -StartProxy
+```
+
+On Windows, Claude Code should read the same user-level settings file under:
+
+```text
+%USERPROFILE%\.claude\settings.json
+```
+
 ### Native macOS app
 
 Build the universal macOS app:
